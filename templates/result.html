@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Dysarthric Speech Detection</h1>
+        
+        <div class="result-container">
+            <h2>Prediction: <span class="label">{{ label }}</span></h2>
+            <img src="{{ url_for('static', filename='spectrograms/' + spec_path.split('/')[-1]) }}" alt="Spectrogram" class="spectrogram">
+            <audio controls>
+                <source src="{{ url_for('static', filename='uploads/temp.wav') }}" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="button">Try Another</a>
+    </div>
+</body>
+</html>

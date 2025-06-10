@@ -1,0 +1,36 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dysarthric Speech Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v={{ time }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Dysarthric Speech Detection</h1>
+
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Upload and Predict</button>
+        </form>
+
+        {% if label %}
+        <div class="result-box">
+            <h2>Prediction: 
+                {% if label.lower() == 'dysarthric' %}
+                    <span class="label label-dysarthric">{{ label }}</span>
+                {% else %}
+                    <span class="label label-normal">{{ label }}</span>
+                {% endif %}
+            </h2>
+            <img src="{{ url_for('static', filename='spectrograms/' + spec_path.split('/')[-1]) }}" alt="Spectrogram" class="spectrogram">
+            <audio controls>
+                <source src="{{ url_for('static', filename='uploads/temp.wav') }}" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
